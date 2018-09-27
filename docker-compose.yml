@@ -17,6 +17,19 @@ services:
     depends_on:
     - build-app
 
+  prod:
+    image: demo-app-prod
+    build:
+      context: .
+      dockerfile: DockerfileProd
+    ports:
+    - 9002:9002
+    expose:
+    - 9002
+    stdin_open: true
+    depends_on:
+    - build-app
+
   db:
     image: postgres:9.6
     restart: always

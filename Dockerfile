@@ -12,5 +12,7 @@ RUN rm sbt.tgz
 WORKDIR /app
 COPY . .
 
-CMD sbt update
-CMD sbt compile
+WORKDIR /app
+RUN sbt update
+RUN sbt compile
+RUN sbt dist
