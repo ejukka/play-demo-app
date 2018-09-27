@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+  build-app:
+    image: demo-app-builder
+    build: .
+    tty: false
+
+  dev:
+    image: demo-app
+    ports:
+    - 9000:9000
+    expose:
+    - 9000
+    stdin_open: true
+    command: sbt run
+    depends_on:
+    - build-app
+
+  db:
+    image: postgres:9.6
+    restart: always
+    environment:
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: test
+    ports:
+    - "5432:5432"
